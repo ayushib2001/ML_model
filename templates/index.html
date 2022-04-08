@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style>
+    .form-input{
+        border: none;
+        border-bottom: 2px solid rgb(79, 79, 80);
+        width: 100%;
+        padding: 6px 12px;
+        display:inline-block;
+        color: rgb(38, 38, 39);
+        background : none;
+    }
+    .heading{
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        padding: 4% 5%;
+        color: white;
+        text-transform: uppercase;
+        background-color:rgb(20, 89, 146);
+        text-shadow: 0 2px rgb(48, 52, 54), 0 3px rgba(194, 197, 228, 0.533);
+
+    }
+</style>
+</head>
+
+<body>
+    
+    <div class="heading">
+        <h1 style="font-size: 4vw;">Used Car Price Prediction</h1>
+    </div>
+    {% block content %}
+    {% endblock %}
+    <div style="position: relative; margin: 4% 20%;">
+        <div class="container" style="position: absolute; width: 100%; font-size: 17px;">
+            <form action="{{ url_for('predict')}}" method="post">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="name">Model Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-input" id="name" name="name" required />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="year">Year</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-input" id="year" name="year">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="km">Kilometers Driven</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-input" id="km" name="km">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="owner">Owner</label>
+                    <div class="col-sm-8">
+                        <select class="form-input" name="owner" id="owner" required>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
+                            <option value="3">Third</option>
+                            <option value="4">Fourth & Above</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="seats">Seats</label>
+                    <div class="col-sm-8">
+                        <input type="number" class="form-input" id="seats" name="seats">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="engine">Engine (CC)</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-input" id="engine" name="engine">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="mileage">Mileage</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-input" id="mileage" name="mileage">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="power">Power</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-input" id="power" name="power">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="location">Location</label>
+                    <div class="col-sm-8">
+                        <select class="form-input" name="location" id="location" required>
+                            <option value="Ahemdabad">Ahemdabad</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Chennai">Chennai</option>
+                            <option value="Coimbatore">Coimbatore</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Jaipur">Jaipur</option>
+                            <option value="Kochi">Kochi</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Pune">Pune</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="fuel">Fuel Type</label>
+                    <div class="col-sm-8">
+                        <select class="form-input" name="fuel" id="fuel">
+                            <option value="Petrol">Petrol</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="LPG">LPG</option>
+                            <option value="CNG">CNG</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="transmission">Transmission Type</label>
+                    <div class="col-sm-8">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="manual" name="trans" value="Manual" checked>
+                            <label class="form-check-label" for="manual">Manual</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="automatic" name="trans" value="Automatic">
+                            <label class="form-check-label" for="automatic">Automatic</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <br><br><br>
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-primary" style="padding: 8px 15px; float:right;">Predict</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
